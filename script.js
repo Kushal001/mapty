@@ -12,9 +12,9 @@ const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
 if (navigator.geolocation)
-  navigator.geolocation(
+  navigator.geolocation.getCurrentPosition(
     function (position) {
-      console, log(position);
+      console.log(position);
     },
     function () {
       alert('Cannot get your location!!!');
