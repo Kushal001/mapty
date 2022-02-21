@@ -50,7 +50,8 @@ class Cycling extends Workout {
   }
 }
 
-console.log(new Cycling([30, 17], 15, 20, 15));
+//////////////////////////////////////////////////
+// APPLICATION ARCHITECTURE
 
 class App {
   #map;
@@ -103,7 +104,40 @@ class App {
   }
 
   _newWorkout(e) {
+    const validInputs = (...inputs) =>
+      inputs.every(input => Number.isFinite(input));
+    const allPositive = (...inputs) => inputs.every(input => input > 0);
+
     e.preventDefault();
+
+    // Get data from the form
+    const type = inputType.value;
+    const duration = +inputDuration.value;
+    const distance = +inputDistance.value;
+
+    // If workout running, create running object
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+
+      // Check if data is valid
+      if (
+        !validInputs(distance, duration, cadence) ||
+        !allPositive(distance, duration, cadence)
+      )
+        return alert('Please enter positive integer!!!');
+    }
+
+    // If workout cycling, create cycling object
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+
+      // Check if data is valid
+      if (
+        !validInputs(distance, duration, elevation) ||
+        !allPositive(distance, duration)
+      )
+        return alert('Please enter positive integer!!!');
+    }
 
     // Clear input field
     inputDistance.value =
